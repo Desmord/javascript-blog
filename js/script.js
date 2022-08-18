@@ -33,7 +33,8 @@
         optTitleListSelector = '.titles',
         optArticleTagsSelector = '.post-tags .list',
         optTagsListSelector = '.tags.list',
-        optArticleAuthorSelector = `.post-author`;
+        optArticleAuthorSelector = `.post-author`,
+        optCloudClassPrefi = 'tag-size-';
 
     const generateTitleLinks = function (filtredLinksId) {
 
@@ -193,11 +194,52 @@
 
     addClickListenersToAuthors();
 
+    const calculateTagsParams = function (tags) {
+        let params = {
+            max: 0,
+            min: 999999,
+        };
+
+        for (let tag in tags) {
+            params.max = tags[tag] > params.max ? tags[tag] : params.max;
+            params.min = tags[tag] < params.min ? tags[tag] : params.min;
+        }
+
+        return params;
+    };
+
+    const getTagLinkSizeClass = function (tag, params) {
+        const tagNumberMoreThenMininum = tag - params.min;
+        const paramsNumberRange = params.max - params.min;
+        let tagRange = 0;
+
+        if (tagNumberMoreThenMininum === 0) {
+            tagRange = 0;
+        } else if (tagNumberMoreThenMininum === paramsNumberRange) {
+            tagRange = 1;
+        } else {
+            console.log(`liczymy`);
+            tagRange = tagNumberMoreThenMininum / paramsNumberRange;
+        }
+
+
+        if (tagRange >= 0.8) {
+            return 5;
+        } else if (tagRange >= 0.6) {
+            return 4;
+        } else if (tagRange >= 0.4) {
+            return 3;
+        } else if (tagRange >= 0.2) {
+            return 2;
+        } else {
+            return 1;
+        }
+
+    };
+
     const generateTagsLinks = function () {
 
-        let allTags = {},
-            // let allTags = [],
-            html = ``;
+        let allTags = {};
         const allArticles = document.querySelectorAll(`article`);
         const tagsWrapper = document.querySelector(optTagsListSelector);
 
@@ -217,8 +259,11 @@
 
         }
 
+        const tagsParams = calculateTagsParams(allTags);
+        let html = ``;
+
         for (let tag in allTags) {
-            html = html + '<li><a href="#">' + tag + '</a> <span>(' + allTags[tag] + ')</span></li>';
+            html = html + '<li><a href="#tag-' + tag + '" class="'+optCloudClassPrefi+''+getTagLinkSizeClass(allTags[tag],tagsParams)+' cloud">' + tag + '</a></li>';
         }
 
         tagsWrapper.insertAdjacentHTML(`beforeend`, html);
@@ -227,4 +272,7 @@
 
     generateTagsLinks();
 
+    // klikanie w tag ma działac jak poprzednio
+    // tak samo lista autorów
+    // zrobic opt w obkiecie
 }
