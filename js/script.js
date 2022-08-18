@@ -131,9 +131,14 @@
             }
         }
 
-    };
+        const tagsSectionlWrapper = document.querySelector(optTagsListSelector);
+        const tagsLink = tagsSectionlWrapper.querySelectorAll(`li`);
 
-    addClickListenersToTags();
+        for(let link of tagsLink){
+            link.addEventListener(`click`, tagClickHandler);
+        }
+
+    };
 
     const generateAuthors = function () {
         const articles = document.querySelectorAll(optArticleSelector);
@@ -177,6 +182,7 @@
         }
 
         generateTitleLinks(filtredLinksIndexs);
+
     };
 
     const addClickListenersToAuthors = function () {
@@ -218,7 +224,6 @@
         } else if (tagNumberMoreThenMininum === paramsNumberRange) {
             tagRange = 1;
         } else {
-            console.log(`liczymy`);
             tagRange = tagNumberMoreThenMininum / paramsNumberRange;
         }
 
@@ -271,8 +276,9 @@
 
 
     generateTagsLinks();
+    addClickListenersToTags();
 
     // klikanie w tag ma działac jak poprzednio
-    // tak samo lista autorów
+    // tak samo lista autorów - na jutro commit
     // zrobic opt w obkiecie
 }
