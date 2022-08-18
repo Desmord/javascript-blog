@@ -32,6 +32,7 @@
         optTitleSelector = '.post-title',
         optTitleListSelector = '.titles',
         optArticleTagsSelector = '.post-tags .list',
+        optTagsListSelector = '.tags.list',
         optArticleAuthorSelector = `.post-author`;
 
     const generateTitleLinks = function (filtredLinksId) {
@@ -165,7 +166,7 @@
         }
 
         for (let article of allArticles) {
-            const articleAuthor = article.querySelector(optArticleAuthorSelector).getAttribute(`data-author`)
+            const articleAuthor = article.querySelector(optArticleAuthorSelector).getAttribute(`data-author`);
 
             if (author === articleAuthor) {
                 const linkIndex = article.getAttribute(`id`);
@@ -191,5 +192,35 @@
     };
 
     addClickListenersToAuthors();
+
+    const generateTagsLinks = function () {
+
+        let allTags = [],
+            html = ``;
+        const allArticles = document.querySelectorAll(`article`);
+        const tagsWrapper = document.querySelector(optTagsListSelector);
+
+        for (let article of allArticles) {
+            const articleTags = article.getAttribute(`data-tags`);
+            const articleTagsArray = articleTags.split(` `);
+
+            for (let tag of articleTagsArray) {
+                const isTagExist = allTags.some(value => value == tag ? true : false);
+                if (!isTagExist) {
+                    allTags.push(tag);
+                }
+            }
+
+        }
+
+        for (let tag of allTags) {
+            html = html + '<li><a href="#">' + tag + '</a></li>';
+        }
+
+        tagsWrapper.insertAdjacentHTML(`beforeend`, html);
+    };
+
+
+    generateTagsLinks();
 
 }
