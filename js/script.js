@@ -195,7 +195,8 @@
 
     const generateTagsLinks = function () {
 
-        let allTags = [],
+        let allTags = {},
+            // let allTags = [],
             html = ``;
         const allArticles = document.querySelectorAll(`article`);
         const tagsWrapper = document.querySelector(optTagsListSelector);
@@ -205,16 +206,19 @@
             const articleTagsArray = articleTags.split(` `);
 
             for (let tag of articleTagsArray) {
-                const isTagExist = allTags.some(value => value == tag ? true : false);
-                if (!isTagExist) {
-                    allTags.push(tag);
+
+                if (!allTags[tag]) {
+                    allTags[tag] = 1;
+                } else {
+                    allTags[tag]++;
                 }
+
             }
 
         }
 
-        for (let tag of allTags) {
-            html = html + '<li><a href="#">' + tag + '</a></li>';
+        for (let tag in allTags) {
+            html = html + '<li><a href="#">' + tag + '</a> <span>(' + allTags[tag] + ')</span></li>';
         }
 
         tagsWrapper.insertAdjacentHTML(`beforeend`, html);
