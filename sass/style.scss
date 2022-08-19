@@ -44,24 +44,24 @@ body {
     }
 }
 
-.tag-size-1 {
-    font-size: 0.8rem;
+.font-size-1 {
+    font-size: 0.7rem;
 }
 
-.tag-size-2 {
-    font-size: 1rem;
+.font-size-2 {
+    font-size: 0.9rem;
 }
 
-.tag-size-3 {
-    font-size: 1.2rem;
+.font-size-3 {
+    font-size: 1.1rem;
 }
 
-.tag-size-4 {
-    font-size: 1.4rem;
+.font-size-4 {
+    font-size: 1.3rem;
 }
 
-.tag-size-5 {
-    font-size: 1.6rem;
+.font-size-5 {
+    font-size: 1.5rem;
 }
 
 /* Layout */
@@ -147,14 +147,21 @@ body {
 }
 
 /* Tags */
-.cloud{
+.cloud {
     display: inline;
     float: left;
-    padding: 4px 8px;
+    padding: 4px 5px;
 }
 
-
-.list.tags{
+.list.tags {
     display: block;
     min-height: 100px;
 }
+
+
+/* Authors */
+.list.authors{
+    display: block;
+    min-height: 100px;
+}
+
