@@ -1,5 +1,6 @@
 'use strict';
 
+/* global Handlebars */
 const templates = {
     articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
     tagLink: Handlebars.compile(document.querySelector('#template-tag-link').innerHTML),
